@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 29 16:29:03 2020
+Created on Thu Jan 30 00:39:22 2020
 
 @author: sinval
-"""    
+"""
+
+import preprocessing_data as data
+from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import cross_val_score
+from keras.models import Sequential
+from keras.layers import Dense
 
 def create_ann():
-    #Import Keras
-    import keras
-    from keras.models import Sequential
-    from keras.layers import Dense
     #Initialising the ann
     classifier = Sequential()
     #Creating the input layer and the first hidden layer
@@ -22,3 +24,12 @@ def create_ann():
     #Compile de ann
     classifier.compile(optimizer="adam", loss = "binary_crossentropy", metrics = ["accuracy"] )
     return classifier
+
+#Preprocess the data
+dataset, X, y, X_train, X_test, y_train, y_test = data.preprocessing_data()
+#Build the ann
+classifier=KerasClassifier(build_fn=create_ann,batch_size=10,epochs=5)
+#Get the accuracies
+accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10, n_jobs = -1)
+mean = accuracies.mean()
+variance = accuracies.std()

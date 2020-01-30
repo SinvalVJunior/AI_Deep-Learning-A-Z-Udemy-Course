@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 #Preprocess the data
 dataset, X, y, X_train, X_test, y_train, y_test = data.preprocessing_data()
 #Build the ann
-classifier = ann.creat_ann()
+classifier = ann.create_ann()
 #Training the ann
 classifier.fit(X_train,y_train,batch_size = 10, nb_epoch = 10)
 #Making the prediction

@@ -6,7 +6,7 @@ Created on Wed Jan 29 16:29:03 2020
 @author: sinval
 """    
 
-def creat_ann():
+def create_ann():
     # Importing the libraries
     import numpy as np
     import matplotlib.pyplot as plt
